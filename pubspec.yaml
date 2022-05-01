@@ -46,6 +46,14 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
 
+  # Firebase
+  firebase_core: ^1.15.0
+  firebase_analytics: ^9.1.6
+  firebase_crashlytics: ^2.7.1
+  firebase_dynamic_links: ^4.2.1
+  firebase_messaging: ^11.2.15
+  flutter_local_notifications: ^9.4.1
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
