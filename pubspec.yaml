@@ -45,7 +45,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-
+  flutter_bloc: ^8.0.1
+  connectivity_plus: ^2.3.0
   # Firebase
   firebase_core: ^1.15.0
   firebase_analytics: ^9.1.6

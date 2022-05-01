@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:local_stocks/utils/network_utils.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //await Firebase.initializeApp();
+  runApp( LocalStocks());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class LocalStocks extends StatelessWidget with WidgetsBindingObserver {
+  LocalStocks({Key? key}) : super(key: key) {
+    WidgetsBinding.instance?.addObserver(this);
+    NetworkUtils.streamSubscribeConnectivityListener();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Local Stocks',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Local Stocks'),
     );
   }
 }
@@ -42,6 +51,18 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        bottom: PreferredSize(
+          preferredSize: Size(MediaQuery.of(context).size.width, 50),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.blueGrey,
+            child: const Text(
+              "No Network Connectivity",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
       ),
       body: Center(
         child: Column(
