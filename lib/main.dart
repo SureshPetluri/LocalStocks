@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:local_stocks/utils/network_utils.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //await Firebase.initializeApp();
-  runApp( LocalStocks());
+  await Firebase.initializeApp();
+  runApp(LocalStocks());
 }
 
 class LocalStocks extends StatelessWidget with WidgetsBindingObserver {
@@ -14,7 +14,6 @@ class LocalStocks extends StatelessWidget with WidgetsBindingObserver {
     WidgetsBinding.instance?.addObserver(this);
     NetworkUtils.streamSubscribeConnectivityListener();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +49,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-        bottom: PreferredSize(
-          preferredSize: Size(MediaQuery.of(context).size.width, 50),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.blueGrey,
-            child: const Text(
-              "No Network Connectivity",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-      ),
+          title: Text(widget.title),
+          bottom: !NetworkUtils.isConnectNetwork
+              ? PreferredSize(
+                  preferredSize: Size(MediaQuery.of(context).size.width, 50),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.blueGrey,
+                    child: const Text(
+                      "No Network Connectivity",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                )
+              : PreferredSize(
+                  preferredSize: Size(MediaQuery.of(context).size.width, 1.0),
+                  child: const SizedBox(),
+                )),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
