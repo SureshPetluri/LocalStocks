@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_stocks/local_themes/color_theme.dart';
 import 'package:local_stocks/routes/route_constants.dart';
+
 import 'home_controller.dart';
 
 /// filter selection
@@ -101,10 +102,12 @@ class OnClickSelectionContentValue extends StatelessWidget {
 
 /// offers section
 class OffersSectionContent extends StatelessWidget {
-  const OffersSectionContent({Key? key, required this.controller})
+  const OffersSectionContent(
+      {Key? key, required this.controller, required this.carousalList})
       : super(key: key);
 
   final HomeController controller;
+  final List<String> carousalList;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +116,7 @@ class OffersSectionContent extends StatelessWidget {
         controller.updateUiWidth(0.004, controller),
       ),
       decoration: BoxDecoration(
-        color: LocalStocksColors.primaryBackgroundColor,
+        color: LocalStocksColors.secondaryBackgroundColor,
         borderRadius: BorderRadius.all(
           Radius.circular(
             controller.updateUiWidth(0.003, controller),
@@ -129,7 +132,7 @@ class OffersSectionContent extends StatelessWidget {
             height: controller.updateUiWidth(0.26, controller),
             child: DisplayCarouselSlider(
               // itemList: controller.images,
-              main: true, controller: controller,
+              main: true, controller: controller, carousalList: carousalList,
             ),
           ),
           Container(
@@ -142,14 +145,18 @@ class OffersSectionContent extends StatelessWidget {
                   height: controller.updateUiWidth(0.129, controller),
                   child: DisplayCarouselSlider(
                     // itemList: controller.images1,
-                    main: false, controller: controller,
+                    main: false,
+                    controller: controller,
+                    carousalList: carousalList,
                   ),
                 ),
                 Container(
                   height: controller.updateUiWidth(0.129, controller),
                   child: DisplayCarouselSlider(
                     // itemList: controller.images2,
-                    main: false, controller: controller,
+                    main: false,
+                    controller: controller,
+                    carousalList: carousalList,
                   ),
                 ),
               ],
@@ -165,19 +172,24 @@ class OffersSectionContent extends StatelessWidget {
 class DisplayCarouselSlider extends StatelessWidget {
   const DisplayCarouselSlider(
       {Key? key,
-        /*required this.itemList*/ required this.main,
-        required this.controller})
+      /*required this.itemList*/ required this.main,
+      required this.controller,
+      required this.carousalList})
       : super(key: key);
 
   // final List itemList;
   final bool main;
   final HomeController controller;
+  final List<String> carousalList;
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-      itemCount: controller.list.length,
+      carouselController: controller.caroselController,
+      itemCount: carousalList.length,
       options: CarouselOptions(
+        scrollPhysics: NeverScrollableScrollPhysics(),
+        autoPlayInterval: Duration(seconds: 2),
         autoPlay: true,
         aspectRatio: 2.0,
         viewportFraction: 1.0,
@@ -185,20 +197,20 @@ class DisplayCarouselSlider extends StatelessWidget {
         scrollDirection: main ? Axis.vertical : Axis.horizontal,
       ),
       itemBuilder: (context, index, realIdx) {
-
-         var productEntry = controller.list[index];
+        var productEntry = carousalList[index];
         return Container(
           child: Center(
             child: controller.isImage(productEntry ?? "")
                 ? InkWell(
-              onTap: () {
-                Get.toNamed(
-                    AppRoutes.productDetailsPage,);
-              },
-              child: Image.network(
-                productEntry ?? "",
-              ),
-            )
+                    onTap: () {
+                      Get.toNamed(
+                        AppRoutes.productDetailsPage,
+                      );
+                    },
+                    child: Image.network(
+                      productEntry ?? "",
+                    ),
+                  )
                 : Image.asset(
               'assets/images/image_placeholder.png',
             ),

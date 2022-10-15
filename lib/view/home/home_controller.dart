@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:local_stocks/model/all_products_model.dart';
@@ -5,13 +6,13 @@ import 'package:local_stocks/model/all_products_model.dart';
 class HomeController extends GetxController {
   // GetAllProductsModel? getAllProductsModel;
   // HomeProvider homeProvider = HomeProvider();
-
+  ScrollController listScrollController = ScrollController();
+  CarouselController caroselController = CarouselController();
   TextEditingController searchController = TextEditingController();
+
   // GetCategory? getCategory;
 
-  final List<String> images = [
-
-  ];
+  final List<String> images = [];
 
   final List<String> images1 = [
     'https://m.media-amazon.com/images/I/71NQeJQrOkL._AC_UL320_.jpg',
@@ -20,21 +21,48 @@ class HomeController extends GetxController {
     'https://m.media-amazon.com/images/I/71H2qSWwxqL._AC_UL320_.jpg',
   ];
 
-  final List<String> images2 = [
-    'https://images-na.ssl-images-amazon.com/images/G/01/gift-certificates/consumer/2022/Fall/GCLP/4C_BGC_US.png',
-    'https://m.media-amazon.com/images/I/41duljjD6%2BL.jpg',
-    'https://m.media-amazon.com/images/I/31pQrwJSnwL.jpg',
-    'https://m.media-amazon.com/images/I/41YlI1LTqBL.jpg',
-    'https://m.media-amazon.com/images/I/21MYxeX9EXL.jpg',
-    'https://images-na.ssl-images-amazon.com/images/G/01/gift-certificates/consumer/2022/Fall/GCLP/3C_Event_MilestoneMoments_US-en.png',
-  ];
+  final Map<int, List<String>> images2 = {
+    1: [
+      'https://m.media-amazon.com/images/I/61sDyXAepuL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/712ALflYTYL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/7161nwSVX9L._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/61nWzrdyUwL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/71VNa3QYKcL._SL1500_.jpg',
+    ],
+    2: [
+      'https://m.media-amazon.com/images/I/81bsw6fnUiL.jpg',
+      'https://m.media-amazon.com/images/I/81JAQKcKkBL.jpg',
+      'https://m.media-amazon.com/images/I/71IW+OslV3L.jpg'
+      'https://m.media-amazon.com/images/I/8167o-RD4eL.jpg',
+    ],
+    3: [
+      'https://m.media-amazon.com/images/I/61IJBsHm97L._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/61rrisp8qiL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/81HXViH8boL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/812cOE51JEL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/617LwLeZGrL._SL1500_.jpg'
+    ],
+    4: [
+      'https://m.media-amazon.com/images/I/710TJuHTMhL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/610TpF8jQyL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/61XPhYGQOQL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/61s79OkQwAL._SL1500_.jpg',
+    ],
+    5:[
+      'https://m.media-amazon.com/images/I/71XKAnxCsLL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/71+xEIlS99L._SL1500_.jpg',
+          'https://m.media-amazon.com/images/I/71eVJ+zm4zL._SL1500_.jpg',
+      'https://m.media-amazon.com/images/I/71uQUeihqeL._SL1500_.jpg'
+    ]
+  };
   GetAllProductsModel? listOfProducts;
   List list = [
-    'https://m.media-amazon.com/images/I/71Y9bkev+iL._AC_SX466_.jpg',
-    'https://m.media-amazon.com/images/I/61WdTalEcKL._AC_SX466_.jpg',
-    'https://m.media-amazon.com/images/I/61iD0U2YwqL._AC_UL320_.jpg',
-    'https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2022/SITE_FLIPS/WIN_22/GW/PWPS/DCC_FEB_PS_M_02_1x._SY304_CB647593327_.jpg',
+    'https://m.media-amazon.com/images/I/71XKAnxCsLL._SL1500_.jpg',
+    'https://m.media-amazon.com/images/I/71+xEIlS99L._SL1500_.jpg',
+    'https://m.media-amazon.com/images/I/61XPhYGQOQL._SL1500_.jpg',
+    'https://m.media-amazon.com/images/I/61s79OkQwAL._SL1500_.jpg'
   ];
+
   @override
   void onInit() async {
     super.onInit();
@@ -45,7 +73,8 @@ class HomeController extends GetxController {
     // await getAllProducts();
     // await viewCategory();
   }
-   updateUiWidth(double widthSize, GetxController controller) {
+
+  updateUiWidth(double widthSize, GetxController controller) {
     double width = Get.width * widthSize;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.update();
@@ -54,13 +83,14 @@ class HomeController extends GetxController {
     return width;
   }
 
-   updateUiHeight(double heightSize, GetxController controller) {
+  updateUiHeight(double heightSize, GetxController controller) {
     double height = Get.height * heightSize;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.update();
     });
     return height;
   }
+
   bool isImage(String filePath) {
     final ext = filePath.toLowerCase();
 
@@ -71,8 +101,41 @@ class HomeController extends GetxController {
         ext.endsWith(".bmp");
   }
 
+  scrollToBottom(){
+    final position = listScrollController.position.maxScrollExtent;
+    listScrollController.animateTo(
+      position,
+      duration: Duration(seconds: 1),
+      curve: Curves.easeOut,
+    );
+  }
+
+  scrollToTop(){
+    final position = listScrollController.position.minScrollExtent;
+    listScrollController.animateTo(
+      position,
+      duration: Duration(seconds: 1),
+      curve: Curves.easeOut,
+    );
+  }
+  scrollToBooks(){
+    final position = listScrollController.position.maxScrollExtent/2.8;
+    listScrollController.animateTo(
+      position,
+      duration: Duration(seconds: 1),
+      curve: Curves.easeOut,
+    );
+  }
+  scrollToIphone(){
+    final position = listScrollController.position.maxScrollExtent/1.38;
+    listScrollController.animateTo(
+      position,
+      duration: Duration(seconds: 1),
+      curve: Curves.easeOut,
+    );
+  }
   /// view all category
- /* viewCategory() async {
+  /* viewCategory() async {
     try {
       /// start spinning indicator
       // FormUtils.showProgress();
@@ -104,7 +167,7 @@ class HomeController extends GetxController {
   }*/
 
   /// get all products method
- /* getAllProducts() async {
+  /* getAllProducts() async {
     try {
       // FormUtils.showProgress();
 
@@ -229,4 +292,26 @@ class HomeController extends GetxController {
 
     return width;
   }*/
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+  }
+
+  @override
+  // TODO: implement onDelete
+  InternalFinalCallback<void> get onDelete => super.onDelete;
 }
