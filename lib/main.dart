@@ -1,32 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
+import 'package:local_stocks/routes/route_constants.dart';
+import 'package:local_stocks/routes/route_pages.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:local_stocks/utils/network_utils.dart';
+import 'package:local_stocks/view/home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   runApp(LocalStocks());
 }
 
 class LocalStocks extends StatelessWidget with WidgetsBindingObserver {
   LocalStocks({Key? key}) : super(key: key) {
     WidgetsBinding.instance?.addObserver(this);
-    NetworkUtils.streamSubscribeConnectivityListener();
+    // NetworkUtils.streamSubscribeConnectivityListener();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Local Stocks',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Local Stocks'),
+      // home: HomeScreen(),
+      initialRoute: AppRoutes.home,
+      getPages: AppPages.routes,
     );
   }
 }
 
+/*
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -89,3 +96,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/

@@ -10,6 +10,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(
+      init:CartController(),
       builder: (controller) => Scaffold(
         bottomNavigationBar: controller.isPlaceOrder
             ? SizedBox()
