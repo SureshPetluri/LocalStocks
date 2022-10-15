@@ -16,7 +16,7 @@ class LIstCartItems extends StatelessWidget {
       builder: (controller) => ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         itemCount: listCart.length,
         itemBuilder: (BuildContext context, int index) => Column(
           children: [

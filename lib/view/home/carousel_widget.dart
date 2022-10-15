@@ -193,7 +193,7 @@ class DisplayCarouselSlider extends StatelessWidget {
                 ? InkWell(
               onTap: () {
                 Get.toNamed(
-                    AppRoutes.cart,);
+                    AppRoutes.productDetailsPage,);
               },
               child: Image.network(
                 productEntry ?? "",

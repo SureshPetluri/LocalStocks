@@ -5,6 +5,8 @@ import 'package:local_stocks/view/cart/cart_binding.dart';
 import 'package:local_stocks/view/cart/cart_screen.dart';
 import 'package:local_stocks/view/home/home_binding.dart';
 import 'package:local_stocks/view/home/home_screen.dart';
+import 'package:local_stocks/view/product_details/product_details_binding.dart';
+import 'package:local_stocks/view/product_details/product_details_screen.dart';
 
 class AppPages {
   static getPageWithTransition({required String name,
@@ -29,11 +31,11 @@ class AppPages {
       page: () => CartScreen(),
       binding: CartBinding(),
     ),
-    // getPageWithTransition(
-    //   name: AppRoutes.home,
-    //   page: () => HomeScreen(),
-    //   binding: HomeBinding(),
-    // )
+    getPageWithTransition(
+      name: AppRoutes.productDetailsPage,
+      page: () => ProductDetailsPage(),
+      binding: ProductDetailBinding(),
+    )
 
   ];
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:local_stocks/model/product_detail.dart';
+import 'package:local_stocks/model/all_products_model.dart';
 
 class HomeController extends GetxController {
   // GetAllProductsModel? getAllProductsModel;
