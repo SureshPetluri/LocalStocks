@@ -2,17 +2,51 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'login_controller.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: 300,
-        width: kIsWeb && Get.width > 600 ? Get.width * 0.5 : Get.width,
-        child: TextFormField(),
+    return GetBuilder<LoginController>(
+      init: LoginController(),
+      builder: (controller) => ScaleTransition(
+        scale: controller.scaleAnimation,
+        child: AlertDialog(
+          title: const Text('Login'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: controller.phoneController,
+              ),
+              TextFormField(
+                controller: controller.otpController,
+              ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                controller.phoneNumberVerification(
+                    controller.phoneController.text);
+              },
+              child: const Text("Sent Code"),
+            ),
+            TextButton(
+              child: const Text("Verify"),
+              onPressed: () => controller
+                  .signInWithPhoneAuthCredential(controller.otpController.text),
+            ),
+            TextButton(
+              child: const Text("Close"),
+              onPressed: () => Get.back(),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+

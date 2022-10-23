@@ -13,7 +13,7 @@ class ProductDetailsController extends GetxController {
     "Price": "200",
     "Seller": "Product Seller Name",
     "imageList": [
-      "assets/images/261991_hhfa33.png",
+      'assets/images/IPhone-PNG-Background-Image.png',
       "assets/images/Apple-iPhone-12.png",
       "assets/images/apple13.png",
       "assets/images/iphoneFront.png",

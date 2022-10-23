@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_stocks/login/login_Screen.dart';
+import 'package:local_stocks/routes/route_constants.dart';
 import 'package:local_stocks/view/home/home_controller.dart';
 import 'package:local_stocks/view/widgets/textfield_value_change.dart';
 import 'carousel_widget.dart';
@@ -25,47 +26,57 @@ class HomeScreen extends StatelessWidget {
         body:  Column(
           crossAxisAlignment : CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.all(50),
-                width: controller.updateUiWidth(0.5, controller),
-                child: TextFormField(
-                  inputFormatters: [
-                    //DateFormatter
-                    // CardFormatter(sample: "**/**/****",separator: '/')
-                    //normal
-                     CardFormatter(sample: "********",separator: '/')
-                  ],
-                  controller: controller.searchController,
-                  onChanged: (text){
-                    if(text == "laptops"){
-                     controller.scrollToBottom();
-                    }else if(text == "mobiles"){
-                      controller.scrollToTop();
-                    }else if(text == 'books'){
-                      controller.scrollToBooks();
-                    }else if(text == 'iphone'){
-                      controller.scrollToIphone();
-                    }
-                  },
-                  decoration: InputDecoration(
-                    border:  OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    filled: true,
-                    fillColor: Colors.grey,
-                    contentPadding: const EdgeInsets.only(
-                        left: 14.0, bottom: 6.0, top: 8.0),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                )),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(50),
+                     width: controller.updateUiWidth(0.5, controller),
+                    child: TextFormField(
+                      inputFormatters: [
+                        //DateFormatter
+                        // CardFormatter(sample: "**/**/****",separator: '/')
+                        //normal
+                         CardFormatter(sample: "********",separator: '/')
+                      ],
+                      controller: controller.searchController,
+                      onChanged: (text){
+                        if(text == "laptops"){
+                         controller.scrollToBottom();
+                        }else if(text == "mobiles"){
+                          controller.scrollToTop();
+                        }else if(text == 'books'){
+                          controller.scrollToBooks();
+                        }else if(text == 'iphone'){
+                          controller.scrollToIphone();
+                        }
+                      },
+                      decoration: InputDecoration(
+                        border:  OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey,
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 6.0, top: 8.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    )),
+                Text("Select Ur Location"),
+                IconButton(
+                  splashRadius:0.5,
+                  onPressed: (){
+                    Get.toNamed(AppRoutes.googleLocationPicker);
+                  }, icon: const Icon(Icons.location_on_rounded),),
+              ],
+            ),
             Expanded(
               child: ListView.builder(
                 controller: controller.listScrollController,
