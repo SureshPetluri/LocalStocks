@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:local_stocks/routes/route_constants.dart';
 import 'package:local_stocks/view/cart/cart_binding.dart';
 import 'package:local_stocks/view/cart/cart_screen.dart';
+import 'package:local_stocks/view/google_maps_location_selection/location_selection_binding.dart';
+import 'package:local_stocks/view/google_maps_location_selection/location_selection_screen.dart';
 import 'package:local_stocks/view/home/home_binding.dart';
 import 'package:local_stocks/view/home/home_screen.dart';
 import 'package:local_stocks/view/product_details/product_details_binding.dart';
@@ -35,6 +37,11 @@ class AppPages {
       name: AppRoutes.productDetailsPage,
       page: () => ProductDetailsPage(),
       binding: ProductDetailBinding(),
+    ),
+    getPageWithTransition(
+      name: AppRoutes.googleLocationPicker,
+      page: () => LocationPickMap(),
+      binding: LocationSelectionBinding(),
     )
 
   ];

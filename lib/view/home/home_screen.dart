@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:local_stocks/login/login_Screen.dart';
 import 'package:local_stocks/view/home/home_controller.dart';
+import 'package:local_stocks/view/widgets/textfield_value_change.dart';
 import 'carousel_widget.dart';
 
 
@@ -12,7 +14,14 @@ class HomeScreen extends StatelessWidget {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (controller) =>Scaffold(
-        appBar: AppBar(title: Text("Home Screen"),),
+        appBar: AppBar(title: Text("Home Screen"),
+        actions: [
+          IconButton(
+              splashRadius:0.5,
+              onPressed: (){
+                Get.dialog(const LoginScreen());
+              }, icon: const Icon(Icons.login_outlined),),
+        ],),
         body:  Column(
           crossAxisAlignment : CrossAxisAlignment.start,
           children: [
@@ -20,6 +29,12 @@ class HomeScreen extends StatelessWidget {
               padding: EdgeInsets.all(50),
                 width: controller.updateUiWidth(0.5, controller),
                 child: TextFormField(
+                  inputFormatters: [
+                    //DateFormatter
+                    // CardFormatter(sample: "**/**/****",separator: '/')
+                    //normal
+                     CardFormatter(sample: "********",separator: '/')
+                  ],
                   controller: controller.searchController,
                   onChanged: (text){
                     if(text == "laptops"){

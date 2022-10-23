@@ -16,18 +16,19 @@ void main() async {
 class LocalStocks extends StatelessWidget with WidgetsBindingObserver {
   LocalStocks({Key? key}) : super(key: key) {
     WidgetsBinding.instance?.addObserver(this);
-    // NetworkUtils.streamSubscribeConnectivityListener();
+     NetworkUtils.streamSubscribeConnectivityListener();
   }
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner:false,
       title: 'Local Stocks',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       // home: HomeScreen(),
-      initialRoute: AppRoutes.home,
+      initialRoute:  AppRoutes.home,
       getPages: AppPages.routes,
     );
   }
