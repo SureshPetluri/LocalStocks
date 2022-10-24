@@ -37,11 +37,11 @@ class LoginScreen extends StatelessWidget {
             TextButton(
               child: const Text("Verify"),
               onPressed: () => controller
-                  .signInWithPhoneAuthCredential(controller.otpController.text),
+                  .signInWithPhoneAuthCredential(controller.otpController.text,context),
             ),
             TextButton(
               child: const Text("Close"),
-              onPressed: () => Get.back(),
+              onPressed: () => controller.inToHomeLogIn(),
             ),
           ],
         ),

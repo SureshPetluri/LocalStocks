@@ -119,7 +119,7 @@ class ProductDetailsPage extends StatelessWidget {
           ),
           Center(
             child: MaterialButton(
-                padding: EdgeInsets.symmetric(horizontal: 58, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 58, vertical: 20),
                 color: LocalStocksColors.blueColor,
                 onPressed: () {
                   Get.toNamed(AppRoutes.cart);

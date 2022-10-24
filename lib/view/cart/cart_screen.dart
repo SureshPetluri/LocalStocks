@@ -20,7 +20,7 @@ class CartScreen extends StatelessWidget {
                         EdgeInsets.only(right: controller.updateUiWidth(0.4)),
                     // width: controller.updateUiWidth(0.5),
                     child: buildPlaceOrderContainer(controller))
-                : SizedBox(),
+                : const SizedBox(),
         appBar: AppBar(
           title: Align(
             alignment: Alignment.bottomLeft,
@@ -84,7 +84,7 @@ class CartScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               LIstCartItems(

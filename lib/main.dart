@@ -1,16 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_stocks/routes/route_constants.dart';
 import 'package:local_stocks/routes/route_pages.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:local_stocks/utils/network_utils.dart';
-import 'package:local_stocks/view/home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  kIsWeb
+      ? await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform)
+      : await Firebase.initializeApp();
   runApp(LocalStocks());
 }
 
@@ -35,67 +36,17 @@ class LocalStocks extends StatelessWidget with WidgetsBindingObserver {
   }
 }
 
-/*
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+class DefaultFirebaseOptions {
+  static FirebaseOptions get currentPlatform {
+    return webProduction;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: Text(widget.title),
-          bottom: !NetworkUtils.isConnectNetwork
-              ? PreferredSize(
-                  preferredSize: Size(MediaQuery.of(context).size.width, 50),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: Colors.blueGrey,
-                    child: const Text(
-                      "No Network Connectivity",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                )
-              : PreferredSize(
-                  preferredSize: Size(MediaQuery.of(context).size.width, 1.0),
-                  child: const SizedBox(),
-                )),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
+  static const FirebaseOptions webProduction = FirebaseOptions(
+      apiKey: "AIzaSyD1FKakf6YCLLuEsTzulSIm4nJPh2BhEWo",
+      authDomain: "localstocks-bf5ed.firebaseapp.com",
+      projectId: "localstocks-bf5ed",
+      storageBucket: "localstocks-bf5ed.appspot.com",
+      messagingSenderId: "695192526641",
+      appId: "1:695192526641:web:5fb0b133c0a4d059179a10",
+      measurementId: "G-00J3TVPBJB");
 }
-*/

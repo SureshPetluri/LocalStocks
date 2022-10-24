@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class LoginController extends GetxController with GetTickerProviderStateMixin {
   AnimationController? _controller;
   late Animation<double> scaleAnimation;
 
@@ -61,32 +59,42 @@ class LoginController extends GetxController
     );
   }
 
-  void signInWithPhoneAuthCredential(String code) async {
-    PhoneAuthCredential phoneAuthCredential =
-    PhoneAuthProvider.credential(
+  void signInWithPhoneAuthCredential(String code, BuildContext context) async {
+    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
         verificationId: verificationId!, smsCode: code);
-    // setState(() {
+
     showLoading = true;
-    // });
     update();
     try {
       final authCredential =
           await _auth.signInWithCredential(phoneAuthCredential);
-
-      // setState(() {
       showLoading = false;
-      // });
       update();
       if (authCredential.user != null) {
         Get.back();
-        // Navigator.push(context, MaterialPageRoute(builder: (context)=> FirebasePhHomeScreen()));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("You login successfully")));
       }
     } on FirebaseAuthException catch (e) {
-      // setState(() {
       showLoading = false;
-      // });
+
       update();
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message??"")));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message ?? "")));
     }
+  }
+
+  inToHomeLogIn() async {
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 700), vsync: this);
+    scaleAnimation =
+        CurvedAnimation(parent: _controller!, curve: Curves.easeInOut);
+
+    _controller?.addListener(() {
+      update();
+    });
+    await _controller?.reverse(from: 1.0);
+    // Future.delayed(const Duration(seconds: 1));
+    Get.back();
   }
 }
