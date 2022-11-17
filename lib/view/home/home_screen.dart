@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:local_stocks/login/login_Screen.dart';
 import 'package:local_stocks/routes/route_constants.dart';
 import 'package:local_stocks/view/home/home_controller.dart';
 import 'package:local_stocks/view/widgets/textfield_value_change.dart';
 import 'carousel_widget.dart';
+import 'package:flutter/foundation.dart';
+
 
 
 class HomeScreen extends StatelessWidget {
@@ -23,6 +26,49 @@ class HomeScreen extends StatelessWidget {
                 Get.dialog(const LoginScreen());
               }, icon: const Icon(Icons.login_outlined),),
         ],),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: SpeedDial(
+          icon: Icons.add,
+          activeIcon: Icons.close,
+          spacing: 3,
+          childPadding: const EdgeInsets.all(5),
+          spaceBetweenChildren: 4,
+          visible: true,
+          switchLabelPosition: true,
+          renderOverlay: true,
+          useRotationAnimation: true,
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.blue,
+          activeForegroundColor: Colors.white,
+          activeBackgroundColor: Colors.blue,
+          elevation: 8.0,
+          isOpenOnStart: false,
+          animationCurve: Curves.elasticInOut,
+          shape: const StadiumBorder(),
+          children: [
+            SpeedDialChild(
+              child: const Icon(Icons.camera_alt_rounded),
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              label: 'Add Selfie',
+              onTap: () {},
+            ),
+            SpeedDialChild(
+              child: const Icon(Icons.add_circle),
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              label: 'Add Tok',
+              onTap: () {},
+            ),
+            SpeedDialChild(
+              child: const Icon(Icons.add_circle),
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              label: 'to Local',
+              onTap: () => controller.DateFormatChangeToUtc(),
+            ),
+          ],
+        ),
         body:  Column(
           crossAxisAlignment : CrossAxisAlignment.start,
           children: [

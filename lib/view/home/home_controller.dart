@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:local_stocks/model/all_products_model.dart';
 
 class HomeController extends GetxController {
@@ -134,6 +135,34 @@ class HomeController extends GetxController {
       curve: Curves.easeOut,
     );
   }
+
+  DateFormatChangeToUtc(
+      {String timeZone = "GMT+05:30", String date = "2022-11-17 01:30:40"}) {
+    try {
+      var f = DateFormat('E, d MMM yyyy HH:mm:ss');
+      if (timeZone.split("").contains('+')) {
+        String hours = timeZone.split("+")[1].split(":")[0];
+        String minutes = timeZone.split("+")[1].split(":")[1];
+        print("my hours and minutes ++++ ${hours} ...$minutes");
+        DateTime localDate = DateTime.parse(date)
+            .add(Duration(hours: int.parse(hours), minutes: int.parse(minutes)));
+        print("my UTC++++ ${f.format(localDate)}");
+        return f.format(localDate);
+      } else {
+        String hours = timeZone.split("-")[1].split(":")[0];
+        String minutes = timeZone.split("-")[1].split(":")[1];
+        print("my hours and minutes ---- ${hours} ...$minutes");
+        DateTime localDate = DateTime.parse(date).subtract(
+            Duration(hours: int.parse(hours), minutes: int.parse(minutes)));
+        print("my UTC------ ${f.format(localDate)}");
+        return f.format(localDate);
+      }
+    } catch (e) {
+      print('Error ******' + e.toString());
+      throw e;
+    }
+  }
+
   /// view all category
   /* viewCategory() async {
     try {

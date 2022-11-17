@@ -12,6 +12,7 @@ class NetworkUtils {
      // DebugUtils.printAsdf("NETWORK Connectivity $result");
       switch (result) {
         case ConnectivityResult.wifi:
+
         case ConnectivityResult.ethernet:
         case ConnectivityResult.mobile:
         case ConnectivityResult.bluetooth:

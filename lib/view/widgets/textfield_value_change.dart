@@ -7,10 +7,7 @@ class CardFormatter extends TextInputFormatter {
   CardFormatter({
     required this.sample,
     required this.separator
-  }) {
-    assert(sample != null);
-    assert(separator != null);
-  }
+  });
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.isNotEmpty) {
